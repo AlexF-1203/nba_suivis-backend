@@ -1,3 +1,4 @@
+# app/controllers/api/v1/users/registrations_controller.rb
 class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
@@ -7,7 +8,11 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
     if resource.persisted?
       render json: {
         status: { code: 200, message: 'Signed up successfully.' },
-        data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
+        data: {
+          id: resource.id,
+          email: resource.email,
+          created_at: resource.created_at.strftime('%Y-%m-%d')
+        }
       }
     else
       render json: {

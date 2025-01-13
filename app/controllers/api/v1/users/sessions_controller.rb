@@ -4,28 +4,29 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
 
   private
 
+  def respond_to_on_destroy
+    current_user ? log_out_success : log_out_failure
+  end
+
   def respond_with(resource, _opts = {})
     render json: {
       status: { code: 200, message: 'Logged in successfully.' },
-      data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
+      data: {
+        user: {
+          id: resource.id,
+          email: resource.email,
+          created_at: resource.created_at.strftime('%Y-%m-%d')
+        },
+        token: request.env['warden-jwt_auth.token']
+      }
     }
   end
 
-  def respond_to_on_destroy
-    jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1],
-                            Rails.application.credentials.fetch(:secret_key_base)).first
-    current_user = User.find(jwt_payload['sub'])
+  def log_out_success
+    render json: { message: 'Logged out successfully.' }
+  end
 
-    if current_user
-      render json: {
-        status: 200,
-        message: 'Logged out successfully.'
-      }, status: :ok
-    else
-      render json: {
-        status: 401,
-        message: "Couldn't find an active session."
-      }, status: :unauthorized
-    end
+  def log_out_failure
+    render json: { message: 'Logged out failure.' }, status: :unauthorized
   end
 end

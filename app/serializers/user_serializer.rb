@@ -1,20 +1,20 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :username, :created_at
-
-  # Ajouter des associations
-  has_many :teams
-  belongs_to :favorite_team
+  attributes :id, :email, :created_at
 
   # Ajouter des attributs conditionnels
   attribute :token, if: :show_token?
 
   # Ajouter des méthodes personnalisées
   def show_token?
-    scope.admin?
+    object.admin?
   end
 
   # Formater des attributs
   def created_at
-    object.created_at.strftime('%Y-%m-%d')
+    if object.created_at.present?
+      object.created_at.strftime('%Y-%m-%d')
+    else
+      nil
+    end
   end
 end

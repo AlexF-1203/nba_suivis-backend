@@ -1,6 +1,14 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
+  has_many :favorite_teams
+  has_many :teams, through: :favorite_teams
+
   devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
+
+  # Ajoutez ces validations
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
 end
