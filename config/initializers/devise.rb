@@ -10,6 +10,7 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   config.navigational_formats = []
+  config.parent_controller = 'ActionController::API'
   config.sign_out_via = :delete
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -75,13 +76,13 @@ Devise.setup do |config|
 
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
-    jwt.expiration_time = 1.day.to_i
     jwt.dispatch_requests = [
       ['POST', %r{^/api/v1/login$}]
     ]
     jwt.revocation_requests = [
       ['DELETE', %r{^/api/v1/logout$}]
     ]
+    jwt.expiration_time = 1.day.to_i
   end
   # Tell if authentication through HTTP Auth is enabled. False by default.
   # It can be set to an array that will enable http authentication only for the
