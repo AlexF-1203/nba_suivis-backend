@@ -41,6 +41,7 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
           user: {
             id: resource.id,
             email: resource.email,
+            username: resource.username,
             created_at: resource.created_at.strftime('%Y-%m-%d')
           },
           token: request.env['warden-jwt_auth.token']

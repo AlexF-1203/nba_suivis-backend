@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :created_at
+  attributes :id, :email, :username, :created_at
 
   # Ajouter des attributs conditionnels
   attribute :token, if: :show_token?
