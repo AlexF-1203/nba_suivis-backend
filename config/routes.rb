@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      get 'assets/teams/:filename', to: 'assets#show'
       devise_scope :user do
         post '/signup', to: 'users/registrations#create'
         post '/login', to: 'users/sessions#create'

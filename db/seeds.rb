@@ -22,48 +22,298 @@ User.destroy_all
 
 # Création des équipes
 puts "Creating teams..."
-teams = [
+eastern_teams = [
+  {
+    name: "Cleveland Cavaliers",
+    city: "Cleveland",
+    conference: "East",
+    rank: 1,
+    logo_url: "/assets/images/teams/clev.png",
+    wins: 33,
+    losses: 5
+  },
   {
     name: "Boston Celtics",
     city: "Boston",
     conference: "East",
-    rank: 1,
-    logo_url: "https://upload.wikimedia.org/wikipedia/fr/e/ee/Hawks_2016.png"
+    rank: 2,
+    logo_url: "/assets/images/teams/celtics.png",
+    wins: 28,
+    losses: 11
+  },
+  {
+    name: "New York Knicks",
+    city: "New York",
+    conference: "East",
+    rank: 3,
+    logo_url: "/assets/images/teams/knicks.png",
+    wins: 26,
+    losses: 15
+  },
+  {
+    name: "Orlando Magic",
+    city: "Orlando",
+    conference: "East",
+    rank: 4,
+    logo_url: "/assets/images/teams/orlando.png",
+    wins: 23,
+    losses: 18
+  },
+  {
+    name: "Indiana Pacers",
+    city: "Indiana",
+    conference: "East",
+    rank: 5,
+    logo_url: "/assets/images/teams/pacers.png",
+    wins: 22,
+    losses: 18
   },
   {
     name: "Milwaukee Bucks",
     city: "Milwaukee",
     conference: "East",
+    rank: 6,
+    logo_url: "/assets/images/teams/bucks.png",
+    wins: 20,
+    losses: 17
+  },
+  {
+    name: "Miami Heat",
+    city: "Miami",
+    conference: "East",
+    rank: 7,
+    logo_url: "/assets/images/teams/heats.png",
+    wins: 20,
+    losses: 18
+  },
+  {
+    name: "Detroit Pistons",
+    city: "Detroit",
+    conference: "East",
+    rank: 8,
+    logo_url: "/assets/images/teams/detroit.png",
+    wins: 21,
+    losses: 19
+  },
+  {
+    name: "Atlanta Hawks",
+    city: "Atlanta",
+    conference: "East",
+    rank: 9,
+    logo_url: "/assets/images/teams/atlanta.png",
+    wins: 19,
+    losses: 19
+  },
+  {
+    name: "Chicago Bulls",
+    city: "Chicago",
+    conference: "East",
+    rank: 10,
+    logo_url: "/assets/images/teams/bulls.png",
+    wins: 18,
+    losses: 21
+  },
+  {
+    name: "Philadelphia 76ers",
+    city: "Philadelphia",
+    conference: "East",
+    rank: 11,
+    logo_url: "/assets/images/teams/phila.png",
+    wins: 15,
+    losses: 22
+  },
+  {
+    name: "Brooklyn Nets",
+    city: "Brooklyn",
+    conference: "East",
+    rank: 12,
+    logo_url: "/assets/images/teams/brooklyn.png",
+    wins: 13,
+    losses: 26
+  },
+  {
+    name: "Toronto Raptors",
+    city: "Toronto",
+    conference: "East",
+    rank: 13,
+    logo_url: "/assets/images/teams/toronto.png",
+    wins: 9,
+    losses: 31
+  },
+  {
+    name: "Charlotte Hornets",
+    city: "Charlotte",
+    conference: "East",
+    rank: 14,
+    logo_url: "/assets/images/teams/hornets.png",
+    wins: 8,
+    losses: 28
+  },
+  {
+    name: "Washington Wizards",
+    city: "Washington",
+    conference: "East",
+    rank: 15,
+    logo_url: "/assets/images/teams/Wizzard.png",
+    wins: 6,
+    losses: 32
+  }
+]
+
+# Western Conference Teams
+western_teams = [
+  {
+    name: "Oklahoma City Thunder",
+    city: "Oklahoma City",
+    conference: "West",
+    rank: 1,
+    logo_url: "/assets/images/teams/thunder.png",
+    wins: 32,
+    losses: 6
+  },
+  {
+    name: "Houston Rockets",
+    city: "Houston",
+    conference: "West",
     rank: 2,
-    logo_url: "https://upload.wikimedia.org/wikipedia/fr/e/ee/Hawks_2016.png"
+    logo_url: "/assets/images/teams/rockets.png",
+    wins: 26,
+    losses: 12
+  },
+  {
+    name: "Memphis Grizzlies",
+    city: "Memphis",
+    conference: "West",
+    rank: 3,
+    logo_url: "/assets/images/teams/memphis.png",
+    wins: 25,
+    losses: 15
   },
   {
     name: "Denver Nuggets",
     city: "Denver",
     conference: "West",
-    rank: 1,
-    logo_url: "https://upload.wikimedia.org/wikipedia/fr/e/ee/Hawks_2016.png"
+    rank: 4,
+    logo_url: "/assets/images/teams/denver.png",
+    wins: 23,
+    losses: 15
   },
   {
-    name: "Phoenix Suns",
-    city: "Phoenix",
+    name: "Dallas Mavericks",
+    city: "Dallas",
     conference: "West",
-    rank: 4,
-    logo_url: "https://upload.wikimedia.org/wikipedia/fr/e/ee/Hawks_2016.png"
+    rank: 5,
+    logo_url: "/assets/images/teams/dallas.png",
+    wins: 22,
+    losses: 17
+  },
+  {
+    name: "Los Angeles Clippers",
+    city: "Los Angeles",
+    conference: "West",
+    rank: 6,
+    logo_url: "/assets/images/teams/clippers.png",
+    wins: 21,
+    losses: 17
   },
   {
     name: "Los Angeles Lakers",
     city: "Los Angeles",
     conference: "West",
     rank: 7,
-    logo_url: "https://upload.wikimedia.org/wikipedia/fr/e/ee/Hawks_2016.png"
+    logo_url: "/assets/images/teams/Lakers.png",
+    wins: 20,
+    losses: 17
+  },
+  {
+    name: "Minnesota Timberwolves",
+    city: "Minnesota",
+    conference: "West",
+    rank: 8,
+    logo_url: "/assets/images/teams/wolves.png",
+    wins: 21,
+    losses: 18
+  },
+  {
+    name: "Sacramento Kings",
+    city: "Sacramento",
+    conference: "West",
+    rank: 9,
+    logo_url: "/assets/images/teams/sacramento.png",
+    wins: 20,
+    losses: 19
+  },
+  {
+    name: "Phoenix Suns",
+    city: "Phoenix",
+    conference: "West",
+    rank: 10,
+    logo_url: "/assets/images/teams/Suns.png",
+    wins: 19,
+    losses: 19
+  },
+  {
+    name: "San Antonio Spurs",
+    city: "San Antonio",
+    conference: "West",
+    rank: 11,
+    logo_url: "/assets/images/teams/spurs.png",
+    wins: 19,
+    losses: 19
+  },
+  {
+    name: "Golden State Warriors",
+    city: "Golden State",
+    conference: "West",
+    rank: 12,
+    logo_url: "/assets/images/teams/warriors.png",
+    wins: 19,
+    losses: 20
+  },
+  {
+    name: "Portland Trail Blazers",
+    city: "Portland",
+    conference: "West",
+    rank: 13,
+    logo_url: "/assets/images/teams/blazzers.png",
+    wins: 13,
+    losses: 25
+  },
+  {
+    name: "Utah Jazz",
+    city: "Utah",
+    conference: "West",
+    rank: 14,
+    logo_url: "/assets/images/teams/jazz.png",
+    wins: 10,
+    losses: 28
+  },
+  {
+    name: "New Orleans Pelicans",
+    city: "New Orleans",
+    conference: "West",
+    rank: 15,
+    logo_url: "/assets/images/teams/pelicans.png",
+    wins: 8,
+    losses: 32
   }
 ]
 
 
-created_teams = teams.map do |team|
-  Team.create!(team)
+all_teams = eastern_teams + western_teams
+created_teams = all_teams.map do |team_data|
+  Team.create!(
+    name: team_data[:name],
+    city: team_data[:city],
+    conference: team_data[:conference],
+    rank: team_data[:rank],
+    logo_url: team_data[:logo_url],
+    wins: team_data[:wins],
+    losses: team_data[:losses]
+  )
 end
+
+puts "Created #{Team.count} teams"
 
 # Création des joueurs
 puts "Creating players..."
