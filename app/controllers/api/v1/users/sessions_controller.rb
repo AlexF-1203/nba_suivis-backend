@@ -9,6 +9,8 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
     Rails.logger.info "Session params: #{params.inspect}"
     self.resource = warden.authenticate!(auth_options)
     sign_in(resource_name, resource)
+    token = request.env['warden-jwt_auth.token']
+    Rails.logger.info "Generated token: #{token}"
     respond_with(resource)
   end
 
