@@ -23,7 +23,11 @@ Rails.application.configure do
   # Enable server timing
   config.server_timing = true
 
-  config.assets.check_precompiled_asset = false
+  config.public_file_server.enabled = true
+  config.serve_static_files = true
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=3600'
+  }
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.

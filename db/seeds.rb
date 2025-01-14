@@ -9,6 +9,9 @@
 #   end
 # db/seeds.rb
 
+
+
+
 # Nettoyage de la base de données
 puts "Cleaning database..."
 # D'abord les tables avec les clés étrangères
@@ -19,7 +22,6 @@ Player.destroy_all
 # Puis les tables principales
 Team.destroy_all
 User.destroy_all
-
 # Création des équipes
 puts "Creating teams..."
 eastern_teams = [
@@ -28,7 +30,7 @@ eastern_teams = [
     city: "Cleveland",
     conference: "East",
     rank: 1,
-    logo_url: "/assets/images/teams/clev.png",
+    logo_url: "/assets/teams/clev.png",
     wins: 33,
     losses: 5
   },
@@ -37,7 +39,7 @@ eastern_teams = [
     city: "Boston",
     conference: "East",
     rank: 2,
-    logo_url: "/assets/images/teams/celtics.png",
+    logo_url: "/assets/teams/celtics.png",
     wins: 28,
     losses: 11
   },
@@ -46,7 +48,7 @@ eastern_teams = [
     city: "New York",
     conference: "East",
     rank: 3,
-    logo_url: "/assets/images/teams/knicks.png",
+    logo_url: "/assets/teams/knicks.png",
     wins: 26,
     losses: 15
   },
@@ -55,7 +57,7 @@ eastern_teams = [
     city: "Orlando",
     conference: "East",
     rank: 4,
-    logo_url: "/assets/images/teams/orlando.png",
+    logo_url: "/assets/teams/orlando.png",
     wins: 23,
     losses: 18
   },
@@ -64,7 +66,7 @@ eastern_teams = [
     city: "Indiana",
     conference: "East",
     rank: 5,
-    logo_url: "/assets/images/teams/pacers.png",
+    logo_url: "/assets/teams/pacers.png",
     wins: 22,
     losses: 18
   },
@@ -73,7 +75,7 @@ eastern_teams = [
     city: "Milwaukee",
     conference: "East",
     rank: 6,
-    logo_url: "/assets/images/teams/bucks.png",
+    logo_url: "/assets/teams/bucks.png",
     wins: 20,
     losses: 17
   },
@@ -82,7 +84,7 @@ eastern_teams = [
     city: "Miami",
     conference: "East",
     rank: 7,
-    logo_url: "/assets/images/teams/heats.png",
+    logo_url: "/assets/teams/heats.png",
     wins: 20,
     losses: 18
   },
@@ -91,7 +93,7 @@ eastern_teams = [
     city: "Detroit",
     conference: "East",
     rank: 8,
-    logo_url: "/assets/images/teams/detroit.png",
+    logo_url: "/assets/teams/detroit.png",
     wins: 21,
     losses: 19
   },
@@ -100,7 +102,7 @@ eastern_teams = [
     city: "Atlanta",
     conference: "East",
     rank: 9,
-    logo_url: "/assets/images/teams/atlanta.png",
+    logo_url: "/assets/teams/atlanta.png",
     wins: 19,
     losses: 19
   },
@@ -109,7 +111,7 @@ eastern_teams = [
     city: "Chicago",
     conference: "East",
     rank: 10,
-    logo_url: "/assets/images/teams/bulls.png",
+    logo_url: "/assets/teams/bulls.png",
     wins: 18,
     losses: 21
   },
@@ -118,7 +120,7 @@ eastern_teams = [
     city: "Philadelphia",
     conference: "East",
     rank: 11,
-    logo_url: "/assets/images/teams/phila.png",
+    logo_url: "/assets/teams/phila.png",
     wins: 15,
     losses: 22
   },
@@ -127,7 +129,7 @@ eastern_teams = [
     city: "Brooklyn",
     conference: "East",
     rank: 12,
-    logo_url: "/assets/images/teams/brooklyn.png",
+    logo_url: "/assets/teams/brooklyn.png",
     wins: 13,
     losses: 26
   },
@@ -136,7 +138,7 @@ eastern_teams = [
     city: "Toronto",
     conference: "East",
     rank: 13,
-    logo_url: "/assets/images/teams/toronto.png",
+    logo_url: "/assets/teams/toronto.png",
     wins: 9,
     losses: 31
   },
@@ -145,7 +147,7 @@ eastern_teams = [
     city: "Charlotte",
     conference: "East",
     rank: 14,
-    logo_url: "/assets/images/teams/hornets.png",
+    logo_url: "/assets/teams/hornets.png",
     wins: 8,
     losses: 28
   },
@@ -154,7 +156,7 @@ eastern_teams = [
     city: "Washington",
     conference: "East",
     rank: 15,
-    logo_url: "/assets/images/teams/Wizzard.png",
+    logo_url: "/assets/teams/Wizzard.png",
     wins: 6,
     losses: 32
   }
@@ -167,7 +169,7 @@ western_teams = [
     city: "Oklahoma City",
     conference: "West",
     rank: 1,
-    logo_url: "/assets/images/teams/thunder.png",
+    logo_url: "/assets/teams/thunder.png",
     wins: 32,
     losses: 6
   },
@@ -176,7 +178,7 @@ western_teams = [
     city: "Houston",
     conference: "West",
     rank: 2,
-    logo_url: "/assets/images/teams/rockets.png",
+    logo_url: "/assets/teams/rockets.png",
     wins: 26,
     losses: 12
   },
@@ -185,7 +187,7 @@ western_teams = [
     city: "Memphis",
     conference: "West",
     rank: 3,
-    logo_url: "/assets/images/teams/memphis.png",
+    logo_url: "/assets/teams/memphis.png",
     wins: 25,
     losses: 15
   },
@@ -194,7 +196,7 @@ western_teams = [
     city: "Denver",
     conference: "West",
     rank: 4,
-    logo_url: "/assets/images/teams/denver.png",
+    logo_url: "/assets/teams/denver.png",
     wins: 23,
     losses: 15
   },
@@ -203,7 +205,7 @@ western_teams = [
     city: "Dallas",
     conference: "West",
     rank: 5,
-    logo_url: "/assets/images/teams/dallas.png",
+    logo_url: "/assets/teams/dallas.png",
     wins: 22,
     losses: 17
   },
@@ -212,7 +214,7 @@ western_teams = [
     city: "Los Angeles",
     conference: "West",
     rank: 6,
-    logo_url: "/assets/images/teams/clippers.png",
+    logo_url: "/assets/teams/clippers.png",
     wins: 21,
     losses: 17
   },
@@ -221,7 +223,7 @@ western_teams = [
     city: "Los Angeles",
     conference: "West",
     rank: 7,
-    logo_url: "/assets/images/teams/Lakers.png",
+    logo_url: "/assets/teams/Lakers.png",
     wins: 20,
     losses: 17
   },
@@ -230,7 +232,7 @@ western_teams = [
     city: "Minnesota",
     conference: "West",
     rank: 8,
-    logo_url: "/assets/images/teams/wolves.png",
+    logo_url: "/assets/teams/wolves.png",
     wins: 21,
     losses: 18
   },
@@ -239,7 +241,7 @@ western_teams = [
     city: "Sacramento",
     conference: "West",
     rank: 9,
-    logo_url: "/assets/images/teams/sacramento.png",
+    logo_url: "/assets/teams/sacramento.png",
     wins: 20,
     losses: 19
   },
@@ -248,7 +250,7 @@ western_teams = [
     city: "Phoenix",
     conference: "West",
     rank: 10,
-    logo_url: "/assets/images/teams/Suns.png",
+    logo_url: "/assets/teams/Suns.png",
     wins: 19,
     losses: 19
   },
@@ -257,7 +259,7 @@ western_teams = [
     city: "San Antonio",
     conference: "West",
     rank: 11,
-    logo_url: "/assets/images/teams/spurs.png",
+    logo_url: "/assets/teams/spurs.png",
     wins: 19,
     losses: 19
   },
@@ -266,7 +268,7 @@ western_teams = [
     city: "Golden State",
     conference: "West",
     rank: 12,
-    logo_url: "/assets/images/teams/warriors.png",
+    logo_url: "/assets/teams/warriors.png",
     wins: 19,
     losses: 20
   },
@@ -275,7 +277,7 @@ western_teams = [
     city: "Portland",
     conference: "West",
     rank: 13,
-    logo_url: "/assets/images/teams/blazzers.png",
+    logo_url: "/assets/teams/blazzers.png",
     wins: 13,
     losses: 25
   },
@@ -284,7 +286,7 @@ western_teams = [
     city: "Utah",
     conference: "West",
     rank: 14,
-    logo_url: "/assets/images/teams/jazz.png",
+    logo_url: "/assets/teams/jazz.png",
     wins: 10,
     losses: 28
   },
@@ -293,7 +295,7 @@ western_teams = [
     city: "New Orleans",
     conference: "West",
     rank: 15,
-    logo_url: "/assets/images/teams/pelicans.png",
+    logo_url: "/assets/teams/pelicans.png",
     wins: 8,
     losses: 32
   }

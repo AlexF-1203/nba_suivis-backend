@@ -265,6 +265,13 @@ GEM
       rspec-support (~> 3.13)
     rspec-support (3.13.2)
     securerandom (0.4.1)
+    sprockets (4.2.1)
+      concurrent-ruby (~> 1.0)
+      rack (>= 2.2.4, < 4)
+    sprockets-rails (3.5.2)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      sprockets (>= 3.0.0)
     sqlite3 (2.5.0-aarch64-linux-gnu)
     sqlite3 (2.5.0-aarch64-linux-musl)
     sqlite3 (2.5.0-arm-linux-gnu)
@@ -317,6 +324,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.1.5, >= 7.1.5.1)
   rspec-rails
+  sprockets-rails
   sqlite3 (>= 1.4)
   tzinfo-data
 
