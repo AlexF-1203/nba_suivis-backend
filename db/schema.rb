@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_14_110019) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_14_110736) do
   create_table "favorite_players", force: :cascade do |t|
     t.integer "player_id", null: false
     t.integer "user_id", null: false
@@ -33,9 +33,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_14_110019) do
     t.integer "team_1_id", null: false
     t.integer "team_2_id", null: false
     t.datetime "date"
-    t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "team_1_score"
+    t.integer "team_2_score"
     t.index ["team_1_id"], name: "index_games_on_team_1_id"
     t.index ["team_2_id"], name: "index_games_on_team_2_id"
   end

@@ -1,3 +1,4 @@
+# app/controllers/api/v1/games_controller.rb
 class Api::V1::GamesController < Api::V1::ApplicationController
   def index
     @games = Game.all
@@ -21,6 +22,6 @@ class Api::V1::GamesController < Api::V1::ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:team_1_id, :team_2_id, :date, :score)
+    params.require(:game).permit(:team_1_id, :team_2_id, :date, :team_1_score, :team_2_score)
   end
 end

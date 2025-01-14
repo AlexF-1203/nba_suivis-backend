@@ -125,31 +125,36 @@ games = [
     team_1: Team.find_by(name: "Boston Celtics"),
     team_2: Team.find_by(name: "Milwaukee Bucks"),
     date: DateTime.new(2025, 1, 15, 19, 30),
-    score: 112
+    team_1_score: 112,
+    team_2_score: 108
   },
   {
     team_1: Team.find_by(name: "Denver Nuggets"),
     team_2: Team.find_by(name: "Phoenix Suns"),
     date: DateTime.new(2025, 1, 16, 20, 00),
-    score: 108
+    team_1_score: 108,
+    team_2_score: 102
   },
   {
     team_1: Team.find_by(name: "Los Angeles Lakers"),
     team_2: Team.find_by(name: "Boston Celtics"),
     date: DateTime.new(2025, 1, 17, 18, 30),
-    score: 115
+    team_1_score: 115,
+    team_2_score: 120
   },
   {
     team_1: Team.find_by(name: "Milwaukee Bucks"),
     team_2: Team.find_by(name: "Phoenix Suns"),
     date: DateTime.new(2025, 1, 18, 19, 00),
-    score: 105
+    team_1_score: 105,
+    team_2_score: 98
   },
   {
     team_1: Team.find_by(name: "Denver Nuggets"),
     team_2: Team.find_by(name: "Los Angeles Lakers"),
     date: DateTime.new(2025, 1, 19, 20, 30),
-    score: 118
+    team_1_score: 118,
+    team_2_score: 112
   }
 ]
 
