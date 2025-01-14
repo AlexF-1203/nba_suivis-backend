@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
       resources :users, only: [:index]
       resources :teams
+      resources :players
+      resources :games
+      resources :favorite_players, only: [:create, :destroy]
+      resources :favorite_teams, only: [:create, :destroy]
     end
   end
 end
