@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_15_165424) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_18_145228) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -74,8 +74,35 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_165424) do
     t.integer "team_2_q3"
     t.integer "team_2_q4"
     t.string "status"
+    t.integer "game_api_id"
+    t.index ["game_api_id"], name: "index_games_on_game_api_id"
     t.index ["team_1_id"], name: "index_games_on_team_1_id"
     t.index ["team_2_id"], name: "index_games_on_team_2_id"
+  end
+
+  create_table "player_games", force: :cascade do |t|
+    t.integer "player_id", null: false
+    t.integer "game_id", null: false
+    t.integer "team_id", null: false
+    t.integer "points"
+    t.integer "rebounds"
+    t.integer "assists"
+    t.integer "minutes"
+    t.integer "blocks"
+    t.integer "steals"
+    t.decimal "free_throw_percentage"
+    t.decimal "true_shooting_percentage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "three_point_percentage"
+    t.integer "personal_fouls"
+    t.integer "turnovers"
+    t.integer "offensive_rebounds"
+    t.integer "defensive_rebounds"
+    t.index ["game_id"], name: "index_player_games_on_game_id"
+    t.index ["player_id", "game_id"], name: "index_player_games_on_player_id_and_game_id", unique: true
+    t.index ["player_id"], name: "index_player_games_on_player_id"
+    t.index ["team_id"], name: "index_player_games_on_team_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -124,5 +151,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_165424) do
   add_foreign_key "favorite_teams", "users"
   add_foreign_key "games", "teams", column: "team_1_id"
   add_foreign_key "games", "teams", column: "team_2_id"
+  add_foreign_key "player_games", "games"
+  add_foreign_key "player_games", "players"
+  add_foreign_key "player_games", "teams"
   add_foreign_key "players", "teams"
 end
