@@ -1,7 +1,13 @@
 # app/controllers/api/v1/games_controller.rb
 class Api::V1::GamesController < Api::V1::ApplicationController
   def index
-    @games = Game.all
+    # Synchroniser avec l'API externe si on veut les scores en direct
+    ApiSportsService.new.sync_live_games if params[:live]
+
+    @games = Game.includes(:team_1, :team_2)
+                 .where('date >= ?', Date.today)
+                 .order(date: :asc)
+
     render json: @games
   end
 

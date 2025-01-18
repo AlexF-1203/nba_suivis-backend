@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_14_144659) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_15_165424) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -65,6 +65,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_14_144659) do
     t.datetime "updated_at", null: false
     t.integer "team_1_score"
     t.integer "team_2_score"
+    t.integer "team_1_q1"
+    t.integer "team_1_q2"
+    t.integer "team_1_q3"
+    t.integer "team_1_q4"
+    t.integer "team_2_q1"
+    t.integer "team_2_q2"
+    t.integer "team_2_q3"
+    t.integer "team_2_q4"
+    t.string "status"
     t.index ["team_1_id"], name: "index_games_on_team_1_id"
     t.index ["team_2_id"], name: "index_games_on_team_2_id"
   end

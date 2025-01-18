@@ -23,6 +23,8 @@ module Backend
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
 
+    Dotenv::Rails.load if defined?(Dotenv)
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

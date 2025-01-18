@@ -20,6 +20,8 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'rack-cors'
 
+gem 'httparty'
+gem 'redis'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
