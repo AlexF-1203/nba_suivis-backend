@@ -9,9 +9,6 @@ namespace :sync do
       api_service.sync_games
       puts "Games synchronization completed!"
 
-      # puts "Synchronizing players..."
-      # api_service.sync_players
-
       puts "Full synchronization completed successfully!"
     rescue => e
       puts "Error during synchronization: #{e.message}"
@@ -37,5 +34,23 @@ namespace :sync do
       puts e.backtrace
       raise e
     end
+  end
+
+  desc "Synchronize statistics for all existing games"
+  task all_games_stats: :environment do
+    api_service = ApiSportsService.new
+    games = Game.where.not(game_api_id: nil)
+
+    puts "Starting synchronization for #{games.count} games..."
+    games.each_with_index do |game, index|
+      begin
+        puts "Processing game #{index + 1}/#{games.count} (API ID: #{game.game_api_id})"
+        api_service.get_game_statistics(game.game_api_id)
+        puts "✓ Completed game #{game.game_api_id}"
+      rescue => e
+        puts "× Error processing game #{game.game_api_id}: #{e.message}"
+      end
+    end
+    puts "All games processing completed!"
   end
 end

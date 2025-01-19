@@ -55,6 +55,7 @@ class ApiSportsService
   end
 
   def get_game_statistics(game_api_id)
+    PlayerGame.where(game: Game.find_by(game_api_id: game_api_id)).destroy_all
     response = self.class.get('/players/statistics', @options.merge(
       query: { game: game_api_id }
     ))
@@ -67,10 +68,12 @@ class ApiSportsService
 
         if stat['player'] && stat['player']['firstname'] && stat['player']['lastname']
           player_name = "#{stat['player']['firstname']} #{stat['player']['lastname']}".strip
-          player = Player.find_or_create_by(name: player_name) if player_name.present?
-          puts "Player créé/trouvé : #{player.inspect}"
-          puts "Player ID : #{player.id}"
-          puts "Player class : #{player.class}"
+          if player_name.present?
+            team = Team.find_by(name: stat['team']['name'])
+            player = Player.find_or_create_by(name: player_name) do |p|
+              p.team = team
+            end
+          end
         else
           puts "Données de joueur manquantes pour stat: #{stat.inspect}"
         end
@@ -94,10 +97,10 @@ class ApiSportsService
           offensive_rebounds: stat['offReb'],
           turnovers: stat['turnovers'],
           personal_fouls: stat['pFouls'],
-          three_point_percentage: stat['fg3p'].to_d,
+          three_point_percentage: stat['tpp'].to_d,
           defensive_rebounds: stat['defReb'],
-          free_throw_percentage: stat['ftp'],
-          true_shooting_percentage: stat['fgp']
+          free_throw_percentage: stat['ftp'].to_d,
+          true_shooting_percentage: stat['fgp'].to_d
         )
       end
     end
@@ -136,6 +139,18 @@ class ApiSportsService
   # end
 
   private
+
+  def convert_percentage(value)
+    return 0 if value.nil? || value.to_s.empty?
+
+    # Si la valeur est déjà un nombre décimal, la retourner directement
+    return value if value.is_a?(Numeric)
+
+    # Enlever le symbole % s'il existe et convertir en décimal
+    value.to_s.gsub('%', '').strip.to_d
+  rescue
+    0 # En cas d'erreur de conversion, retourner 0
+  end
 
   def handle_response(response)
     Rails.logger.debug "Response body: #{response.body}"
