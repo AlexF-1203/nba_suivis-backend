@@ -26,21 +26,6 @@ class ApiSportsService
       ActiveRecord::Base.transaction do
         Game.destroy_all
         games_data['response'].each do |game_data|
-        #   home_team = Team.find_by(name: game_data['teams']['home']['name'])
-        #   away_team = Team.find_by(name: game_data['teams']['visitors']['name'])
-
-        #   home_team.update!(
-        #   wins: game_data['scores']['home']["win"],
-        #   losses: game_data['scores']['home']['loss']
-        # )
-
-        # away_team.update!(
-        #   wins: game_data['scores']['visitors']["win"],
-        #   losses: game_data['scores']['visitors']['loss']
-        # )
-        # A remettre une fois que l'api donne les données de victoires et défaites
-
-
           game = Game.find_or_initialize_by(
             team_1: Team.find_by(name: game_data['teams']['home']['name']),
             team_2: Team.find_by(name: game_data['teams']['visitors']['name']),
@@ -70,79 +55,85 @@ class ApiSportsService
   end
 
   def get_game_statistics(game_api_id)
-    response = self.class.get('/games/statistics', @options.merge(
-      query: { id: game_api_id }
+    response = self.class.get('/players/statistics', @options.merge(
+      query: { game: game_api_id }
     ))
 
     stats_data = handle_response(response)
+    game = Game.find_by(game_api_id: game_api_id)
 
-    # Formater chaque statistique de joueur
-    player_stats = stats_data['response'].map do |stat|
-      {
-        player: {
-          id: stat['player']['id'],
-          name: "#{stat['player']['firstname']} #{stat['player']['lastname']}",
-          position: stat['pos']
-        },
-        team: {
-          id: stat['team']['id'],
-          name: stat['team']['name'],
-          nickname: stat['team']['nickname'],
-          code: stat['team']['code']
-        },
-        statistics: {
+    ActiveRecord::Base.transaction do
+      stats_data['response'].each do |stat|
+
+        if stat['player'] && stat['player']['firstname'] && stat['player']['lastname']
+          player_name = "#{stat['player']['firstname']} #{stat['player']['lastname']}".strip
+          player = Player.find_or_create_by(name: player_name) if player_name.present?
+          puts "Player créé/trouvé : #{player.inspect}"
+          puts "Player ID : #{player.id}"
+          puts "Player class : #{player.class}"
+        else
+          puts "Données de joueur manquantes pour stat: #{stat.inspect}"
+        end
+        team = Team.find_by(name: stat['team']['name'])
+
+        next unless player && team && game
+
+        player_game = PlayerGame.find_or_initialize_by(
+          player: player,
+          game: game,
+          team: team
+        )
+
+        player_game.update!(
           points: stat['points'],
           minutes: stat['min'],
-          true_shooting_percentage: stat['fgp'],
-          free_throw_percentage: stat['ftp'],
-          three_point_percentage: stat['tpp'],
-          offensive_rebounds: stat['offReb'],
-          defensive_rebounds: stat['defReb'],
           rebounds: stat['totReb'],
           assists: stat['assists'],
-          steals: stat['steals'],
           blocks: stat['blocks'],
+          steals: stat['steals'],
+          offensive_rebounds: stat['offReb'],
           turnovers: stat['turnovers'],
-          personal_fouls: stat['pFouls']
-        }
-      }
-    end
-
-    # Retourner les statistiques organisées
-    {
-      game_id: game_api_id,
-      player_statistics: player_stats
-    }
-  end
-  def sync_players
-    Rails.logger.info "Début de la synchronisation des joueurs"
-    begin
-      response = self.class.get('/players', @options.merge(
-        query: { season: '2023-2024' }
-      ))
-
-      players_data = handle_response(response)
-
-      ActiveRecord::Base.transaction do
-        players_data['response'].each do |player_data|
-          next unless player_data['active']
-
-          player = Player.find_or_initialize_by(
-            name: "#{player_data['firstname']} #{player_data['lastname']}"
-          )
-
-          player.update!(
-            team: Team.find_by(name: player_data['team']['name']),
-            profile: player_data['pos'],
-            image: player_data['image']
-          )
-        end
+          personal_fouls: stat['pFouls'],
+          three_point_percentage: stat['fg3p'].to_d,
+          defensive_rebounds: stat['defReb'],
+          free_throw_percentage: stat['ftp'],
+          true_shooting_percentage: stat['fgp']
+        )
       end
-    rescue => e
-      Rails.logger.error "Erreur lors de la synchronisation des joueurs: #{e.message}"
-      raise e
     end
+  rescue => e
+    Rails.logger.error "Error syncing game statistics: #{e.message}"
+    raise e
   end
+  # def sync_players
+  #   Rails.logger.info "Début de la synchronisation des joueurs"
+  #   begin
+  #     response = self.class.get('/players', @options.merge(
+  #       query: { season: '2023-2024' }
+  #     ))
+
+  #     players_data = handle_response(response)
+
+  #     ActiveRecord::Base.transaction do
+  #       players_data['response'].each do |player_data|
+  #         next unless player_data['active']
+
+  #         player = Player.find_or_initialize_by(
+  #           name: "#{player_data['firstname']} #{player_data['lastname']}"
+  #         )
+
+  #         player.update!(
+  #           team: Team.find_by(name: player_data['team']['name']),
+  #           profile: player_data['pos'],
+  #           image: player_data['image']
+  #         )
+  #       end
+  #     end
+  #   rescue => e
+  #     Rails.logger.error "Erreur lors de la synchronisation des joueurs: #{e.message}"
+  #     raise e
+  #   end
+  # end
 
   private
 
