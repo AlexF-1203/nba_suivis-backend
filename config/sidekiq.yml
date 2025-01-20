@@ -1,7 +1,14 @@
-Sidekiq.configure_server do |config|
-  config.redis = { url: 'redis://localhost:6379/0' }
-end
+:concurrency: 10
+:timeout: 30
 
-Sidekiq.configure_client do |config|
-  config.redis = { url: 'redis://localhost:6379/0' }
-end
+:queues:
+  - default
+  - mailers
+
+:scheduler:
+  :schedule:
+    sync_games_job:
+      cron: '0 * * * *'  # Toutes les heures
+      class: SyncGamesJob
+      queue: default
+      enabled: true

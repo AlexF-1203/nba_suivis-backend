@@ -26,6 +26,14 @@ module Backend
 
     Dotenv::Rails.load if defined?(Dotenv)
 
+    if defined?(Rails::Server)
+      config.after_initialize do
+        schedule_file = Rails.root.join('config/scheduler.yml')
+        if File.exist?(schedule_file)
+          Sidekiq.schedule = YAML.load_file(schedule_file)
+        end
+      end
+    end
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

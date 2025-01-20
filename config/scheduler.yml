@@ -1,0 +1,4 @@
+sync_games_scheduler:
+  cron: "0 * * * *"
+  class: "SyncGamesJob"
+  queue: "default"
