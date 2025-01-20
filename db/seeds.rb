@@ -15,13 +15,14 @@
 # Nettoyage de la base de données
 puts "Cleaning database..."
 # D'abord les tables avec les clés étrangères
+PlayerGame.destroy_all
 FavoritePlayer.destroy_all
 FavoriteTeam.destroy_all
 Game.destroy_all
 Player.destroy_all
 # Puis les tables principales
 Team.destroy_all
-User.destroy_all
+
 # Création des équipes
 puts "Creating teams..."
 eastern_teams = [
@@ -36,7 +37,7 @@ eastern_teams = [
   },
   {
     name: "Boston Celtics",
-    city: "Boston",
+    city: "Celtics",
     conference: "East",
     rank: 2,
     logo_url: "/assets/teams/celtics.png",
@@ -45,7 +46,7 @@ eastern_teams = [
   },
   {
     name: "New York Knicks",
-    city: "New York",
+    city: "Knicks",
     conference: "East",
     rank: 3,
     logo_url: "/assets/teams/knicks.png",
@@ -54,7 +55,7 @@ eastern_teams = [
   },
   {
     name: "Orlando Magic",
-    city: "Orlando",
+    city: "Magic",
     conference: "East",
     rank: 4,
     logo_url: "/assets/teams/orlando.png",
@@ -63,7 +64,7 @@ eastern_teams = [
   },
   {
     name: "Indiana Pacers",
-    city: "Indiana",
+    city: "Pacers",
     conference: "East",
     rank: 5,
     logo_url: "/assets/teams/pacers.png",
@@ -72,7 +73,7 @@ eastern_teams = [
   },
   {
     name: "Milwaukee Bucks",
-    city: "Milwaukee",
+    city: "Bucks",
     conference: "East",
     rank: 6,
     logo_url: "/assets/teams/bucks.png",
@@ -81,7 +82,7 @@ eastern_teams = [
   },
   {
     name: "Miami Heat",
-    city: "Miami",
+    city: "Heat",
     conference: "East",
     rank: 7,
     logo_url: "/assets/teams/heats.png",
@@ -90,7 +91,7 @@ eastern_teams = [
   },
   {
     name: "Detroit Pistons",
-    city: "Detroit",
+    city: "Pistons",
     conference: "East",
     rank: 8,
     logo_url: "/assets/teams/detroit.png",
@@ -99,7 +100,7 @@ eastern_teams = [
   },
   {
     name: "Atlanta Hawks",
-    city: "Atlanta",
+    city: "Hawks",
     conference: "East",
     rank: 9,
     logo_url: "/assets/teams/atlanta.png",
@@ -108,7 +109,7 @@ eastern_teams = [
   },
   {
     name: "Chicago Bulls",
-    city: "Chicago",
+    city: "Bulls",
     conference: "East",
     rank: 10,
     logo_url: "/assets/teams/bulls.png",
@@ -117,7 +118,7 @@ eastern_teams = [
   },
   {
     name: "Philadelphia 76ers",
-    city: "Philadelphia",
+    city: "76ers",
     conference: "East",
     rank: 11,
     logo_url: "/assets/teams/phila.png",
@@ -126,7 +127,7 @@ eastern_teams = [
   },
   {
     name: "Brooklyn Nets",
-    city: "Brooklyn",
+    city: "Nets",
     conference: "East",
     rank: 12,
     logo_url: "/assets/teams/brooklyn.png",
@@ -135,7 +136,7 @@ eastern_teams = [
   },
   {
     name: "Toronto Raptors",
-    city: "Toronto",
+    city: "Raptors",
     conference: "East",
     rank: 13,
     logo_url: "/assets/teams/toronto.png",
@@ -144,7 +145,7 @@ eastern_teams = [
   },
   {
     name: "Charlotte Hornets",
-    city: "Charlotte",
+    city: "Hornets",
     conference: "East",
     rank: 14,
     logo_url: "/assets/teams/hornets.png",
@@ -153,7 +154,7 @@ eastern_teams = [
   },
   {
     name: "Washington Wizards",
-    city: "Washington",
+    city: "Wizards",
     conference: "East",
     rank: 15,
     logo_url: "/assets/teams/Wizzard.png",
@@ -166,7 +167,7 @@ eastern_teams = [
 western_teams = [
   {
     name: "Oklahoma City Thunder",
-    city: "Oklahoma City",
+    city: "Thunder",
     conference: "West",
     rank: 1,
     logo_url: "/assets/teams/thunder.png",
@@ -175,7 +176,7 @@ western_teams = [
   },
   {
     name: "Houston Rockets",
-    city: "Houston",
+    city: "Rockets",
     conference: "West",
     rank: 2,
     logo_url: "/assets/teams/rockets.png",
@@ -184,7 +185,7 @@ western_teams = [
   },
   {
     name: "Memphis Grizzlies",
-    city: "Memphis",
+    city: "Grizzlies",
     conference: "West",
     rank: 3,
     logo_url: "/assets/teams/memphis.png",
@@ -193,7 +194,7 @@ western_teams = [
   },
   {
     name: "Denver Nuggets",
-    city: "Denver",
+    city: "Nuggets",
     conference: "West",
     rank: 4,
     logo_url: "/assets/teams/denver.png",
@@ -202,7 +203,7 @@ western_teams = [
   },
   {
     name: "Dallas Mavericks",
-    city: "Dallas",
+    city: "Mavericks",
     conference: "West",
     rank: 5,
     logo_url: "/assets/teams/dallas.png",
@@ -210,8 +211,8 @@ western_teams = [
     losses: 17
   },
   {
-    name: "Los Angeles Clippers",
-    city: "Los Angeles",
+    name: "LA Clippers",
+    city: "Clippers",
     conference: "West",
     rank: 6,
     logo_url: "/assets/teams/clippers.png",
@@ -220,7 +221,7 @@ western_teams = [
   },
   {
     name: "Los Angeles Lakers",
-    city: "Los Angeles",
+    city: "Lakers",
     conference: "West",
     rank: 7,
     logo_url: "/assets/teams/Lakers.png",
@@ -229,7 +230,7 @@ western_teams = [
   },
   {
     name: "Minnesota Timberwolves",
-    city: "Minnesota",
+    city: "Timberwolves",
     conference: "West",
     rank: 8,
     logo_url: "/assets/teams/wolves.png",
@@ -238,7 +239,7 @@ western_teams = [
   },
   {
     name: "Sacramento Kings",
-    city: "Sacramento",
+    city: "Kings",
     conference: "West",
     rank: 9,
     logo_url: "/assets/teams/sacramento.png",
@@ -247,7 +248,7 @@ western_teams = [
   },
   {
     name: "Phoenix Suns",
-    city: "Phoenix",
+    city: "Suns",
     conference: "West",
     rank: 10,
     logo_url: "/assets/teams/Suns.png",
@@ -256,7 +257,7 @@ western_teams = [
   },
   {
     name: "San Antonio Spurs",
-    city: "San Antonio",
+    city: "Spurs",
     conference: "West",
     rank: 11,
     logo_url: "/assets/teams/spurs.png",
@@ -265,7 +266,7 @@ western_teams = [
   },
   {
     name: "Golden State Warriors",
-    city: "Golden State",
+    city: "Warriors",
     conference: "West",
     rank: 12,
     logo_url: "/assets/teams/warriors.png",
@@ -274,7 +275,7 @@ western_teams = [
   },
   {
     name: "Portland Trail Blazers",
-    city: "Portland",
+    city: "Blazers",
     conference: "West",
     rank: 13,
     logo_url: "/assets/teams/blazzers.png",
@@ -283,7 +284,7 @@ western_teams = [
   },
   {
     name: "Utah Jazz",
-    city: "Utah",
+    city: "Jazz",
     conference: "West",
     rank: 14,
     logo_url: "/assets/teams/jazz.png",
@@ -292,7 +293,7 @@ western_teams = [
   },
   {
     name: "New Orleans Pelicans",
-    city: "New Orleans",
+    city: "Pelicans",
     conference: "West",
     rank: 15,
     logo_url: "/assets/teams/pelicans.png",
@@ -930,18 +931,18 @@ created_players = players.map do |player|
 end
 
 # Création des utilisateurs
-puts "Creating users..."
-users = [
-  { email: "admin@test.com", password: "password", username: "NBAFan1" },
-  { email: "user2@example.com", password: "password123", username: "HoopsMaster" },
-  { email: "user3@example.com", password: "password123", username: "BasketballLover" },
-  { email: "user4@example.com", password: "password123", username: "CourtKing" },
-  { email: "user5@example.com", password: "password123", username: "BballExpert" }
-]
+# puts "Creating users..."
+# users = [
+#   { email: "admin@test.com", password: "password", username: "NBAFan1" },
+#   { email: "user2@example.com", password: "password123", username: "HoopsMaster" },
+#   { email: "user3@example.com", password: "password123", username: "BasketballLover" },
+#   { email: "user4@example.com", password: "password123", username: "CourtKing" },
+#   { email: "user5@example.com", password: "password123", username: "BballExpert" }
+# ]
 
-created_users = users.map do |user|
-  User.create!(user)
-end
+# created_users = users.map do |user|
+#   User.create!(user)
+# end
 
 # Création des matchs
 # puts "Creating games..."
@@ -988,26 +989,26 @@ end
 # end
 
 # Création des favoris
-puts "Creating favorites..."
-User.all.each do |user|
-  # Ajout de 2 équipes favorites aléatoires pour chaque utilisateur
-  teams_sample = Team.all.sample(3)
-  teams_sample.each do |team|
-    FavoriteTeam.create!(
-      user: user,
-      team: team
-    )
-  end
+# puts "Creating favorites..."
+# User.all.each do |user|
+#   # Ajout de 2 équipes favorites aléatoires pour chaque utilisateur
+#   teams_sample = Team.all.sample(3)
+#   teams_sample.each do |team|
+#     FavoriteTeam.create!(
+#       user: user,
+#       team: team
+#     )
+#   end
 
-  # Ajout de 2 joueurs favoris aléatoires pour chaque utilisateur
-  players_sample = Player.all.sample(5)
-  players_sample.each do |player|
-    FavoritePlayer.create!(
-      user: user,
-      player: player
-    )
-  end
-end
+#   # Ajout de 2 joueurs favoris aléatoires pour chaque utilisateur
+#   players_sample = Player.all.sample(5)
+#   players_sample.each do |player|
+#     FavoritePlayer.create!(
+#       user: user,
+#       player: player
+#     )
+#   end
+# end
 
 puts "Seed completed! Created:"
 puts "- #{Team.count} teams"

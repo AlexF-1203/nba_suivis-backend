@@ -13,6 +13,8 @@ class ApiSportsService
   end
 
   def sync_games
+    PlayerGame.destroy_all
+     Game.destroy_all
     Rails.logger.info "Début de la synchronisation des matchs"
     begin
 
@@ -24,7 +26,6 @@ class ApiSportsService
       games_data = handle_response(response)
 
       ActiveRecord::Base.transaction do
-        Game.destroy_all
         games_data['response'].each do |game_data|
           game = Game.find_or_initialize_by(
             team_1: Team.find_by(name: game_data['teams']['home']['name']),
@@ -49,7 +50,7 @@ class ApiSportsService
         end
       end
     rescue => e
-      Rails.logger.error "Erreur lors de la synchronisation: #{e.message}"
+      log_sync_error(e)
       raise e
     end
   end
@@ -150,6 +151,12 @@ class ApiSportsService
     value.to_s.gsub('%', '').strip.to_d
   rescue
     0 # En cas d'erreur de conversion, retourner 0
+  end
+
+  def log_sync_error(error)
+    error_message = "Erreur lors de la synchronisation: #{error.message}"
+    error_message += "\nTrace: #{error.backtrace.first(5).join("\n")}"
+    Rails.logger.error(error_message)
   end
 
   def handle_response(response)
