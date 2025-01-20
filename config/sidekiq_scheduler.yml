@@ -1,0 +1,4 @@
+:schedule:
+  sync_games_job:
+    every: '1h'   # Exécute toutes les heures
+    class: SyncGamesJob

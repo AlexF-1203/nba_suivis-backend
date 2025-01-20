@@ -23,6 +23,11 @@ gem 'rack-cors'
 gem 'httparty'
 gem 'redis'
 
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
+gem 'whenever', require: false
+gem 'redis'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
