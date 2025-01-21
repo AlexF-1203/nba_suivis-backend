@@ -28,6 +28,8 @@ gem 'sidekiq-scheduler'
 gem 'whenever', require: false
 gem 'redis'
 
+gem 'fcm'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

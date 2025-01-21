@@ -13,8 +13,6 @@ class ApiSportsService
   end
 
   def sync_games
-    PlayerGame.destroy_all
-     Game.destroy_all
     Rails.logger.info "Début de la synchronisation des matchs"
     begin
 

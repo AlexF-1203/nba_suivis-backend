@@ -2,3 +2,6 @@
   sync_games_job:
     every: '1h'   # Exécute toutes les heures
     class: SyncGamesJob
+  destroy_old_games_job:
+    cron: "0 0 * * *"  # Tous les jours à minuit
+    class: DestroyOldGamesJob

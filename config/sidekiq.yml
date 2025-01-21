@@ -12,3 +12,6 @@
       class: SyncGamesJob
       queue: default
       enabled: true
+    destroy_old_games_job:
+      cron: "0 0 * * *"  # Tous les jours à minuit
+      class: DestroyOldGamesJob
