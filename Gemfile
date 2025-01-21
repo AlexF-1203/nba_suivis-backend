@@ -28,7 +28,7 @@ gem 'sidekiq-scheduler'
 gem 'whenever', require: false
 gem 'redis'
 
-gem 'fcm'
+gem 'firebase-admin-sdk'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
