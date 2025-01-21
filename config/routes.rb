@@ -17,7 +17,11 @@ Rails.application.routes.draw do
       resources :users, only: [:index]
       resources :teams
       resources :players
-      resources :games
+      resources :games do
+        collection do
+          get 'available_dates'
+        end
+      end
       resources :favorite_teams, only: [:index, :create, :destroy]
       resources :favorite_players, only: [:index, :create, :destroy]
       resources :player_games, only: [:index]

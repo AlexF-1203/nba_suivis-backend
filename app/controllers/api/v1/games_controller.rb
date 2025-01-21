@@ -4,9 +4,11 @@ class Api::V1::GamesController < Api::V1::ApplicationController
     # Synchroniser avec l'API externe si on veut les scores en direct
     ApiSportsService.new.sync_live_games if params[:live]
 
+    target_date = params[:date] ? Date.parse(params[:date]) : Date.today
+
     @games = Game.includes(:team_1, :team_2)
-                 .where('date >= ?', Date.today)
-                 .order(date: :asc)
+                .where('DATE(date) = ?', target_date)
+                .order(date: :asc)
 
     render json: @games
   end
@@ -26,6 +28,14 @@ class Api::V1::GamesController < Api::V1::ApplicationController
   end
 
   private
+
+  def available_dates
+    dates = Game.select('DISTINCT DATE(date) as game_date')
+                .order('game_date DESC')
+                .map(&:game_date)
+
+    render json: { dates: dates }
+  end
 
   def game_params
     params.require(:game).permit(:team_1_id, :team_2_id, :date, :team_1_score, :team_2_score)

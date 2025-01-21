@@ -11,7 +11,7 @@ class SyncGamesJob < ApplicationJob
 
       # Au lieu d'utiliser require_dependency, utilisez directement la classe
       # Assurez-vous que les deux fichiers sont dans le même dossier app/jobs/
-      SyncGameStatsJob.set(wait: 1.minutes).perform_later
+      SyncGameStatsJob.perform_later
 
       Rails.logger.info "Stats job scheduled successfully"
     rescue => e

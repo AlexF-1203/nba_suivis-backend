@@ -1,4 +1,3 @@
-# app/jobs/sync_game_stats_job.rb
 class SyncGameStatsJob < ApplicationJob
   queue_as :default
 
@@ -14,7 +13,17 @@ class SyncGameStatsJob < ApplicationJob
       end
 
       Rails.logger.info "Syncing stats for game #{game.id}..."
-      api_service.get_game_statistics(game.game_api_id)
+
+      begin
+        api_service.get_game_statistics(game.game_api_id)
+
+        # Ajouter un délai de 20 secondes entre chaque requête
+        Rails.logger.info "Waiting 20 seconds before next request..."
+        sleep(20)
+      rescue => e
+        Rails.logger.error "Error syncing stats for game #{game.id}: #{e.message}"
+        # Continue to next game even if there's an error
+      end
     end
   end
 end
