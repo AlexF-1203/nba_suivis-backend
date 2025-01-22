@@ -82,8 +82,8 @@ Devise.setup do |config|
     jwt.revocation_requests = [
       ['DELETE', %r{^/api/v1/logout$}]
     ]
-    jwt.expiration_time = 1.day.to_i
-    jwt.revocation_manager.on_error = ->(error) { Rails.logger.error(error) }
+    jwt.expiration_time = 24.hours.to_i
+    jwt.request_formats = { user: [:json] }
   end
   # Tell if authentication through HTTP Auth is enabled. False by default.
   # It can be set to an array that will enable http authentication only for the

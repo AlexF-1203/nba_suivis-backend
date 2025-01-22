@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_many :teams, through: :favorite_teams
   has_many :device_tokens, dependent: :destroy
 
+  filter_attributes.delete(:token)
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self

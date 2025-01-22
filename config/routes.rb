@@ -7,14 +7,14 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post 'test_notification', to: 'notifications#test'
-      get 'assets/teams/:filename', to: 'assets#show'
       devise_scope :user do
-        post '/signup', to: 'users/registrations#create'
-        post '/login', to: 'users/sessions#create'
-        delete '/logout', to: 'users/sessions#destroy'
+        post 'login', to: 'users/sessions#create'
+        delete 'logout', to: 'users/sessions#destroy'
+        post 'signup', to: 'users/registrations#create'
       end
 
+      post 'test_notification', to: 'notifications#test'
+      get 'assets/teams/:filename', to: 'assets#show'
       resources :users, only: [:index]
       resources :teams
       resources :players
@@ -28,7 +28,8 @@ Rails.application.routes.draw do
       resources :player_games, only: [:index]
       resources :device_tokens, only: [:create] do
         collection do
-          delete 'cleanup'
+          get :status
+          post :test
         end
       end
     end
