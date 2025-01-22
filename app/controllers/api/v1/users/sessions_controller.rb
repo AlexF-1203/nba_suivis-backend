@@ -15,19 +15,31 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
   end
 
   def destroy
-    if current_user
-      # Désactivons temporairement la validation pour la mise à jour du JTI
-      current_user.update_column(:jti, SecureRandom.uuid)
-      signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+    begin
+      # Supprime la validation du token pour la déconnexion
+      skip_authorization
+
+      if current_user
+        # Mise à jour du JTI sans validation
+        current_user.update_column(:jti, SecureRandom.uuid)
+        sign_out(current_user)
+
+        render json: {
+          status: 200,
+          message: "Déconnexion réussie"
+        }
+      else
+        render json: {
+          status: 200,
+          message: "Déjà déconnecté"
+        }
+      end
+    rescue => e
+      Rails.logger.error("Erreur de déconnexion: #{e.message}")
       render json: {
-        status: 200,
-        message: "Logged out successfully."
-      }
-    else
-      render json: {
-        status: 401,
-        message: "Couldn't find an active session."
-      }, status: :unauthorized
+        status: 500,
+        message: "Erreur lors de la déconnexion"
+      }, status: :internal_server_error
     end
   end
 
