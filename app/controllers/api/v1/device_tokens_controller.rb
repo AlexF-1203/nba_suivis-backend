@@ -2,19 +2,24 @@ class Api::V1::DeviceTokensController < Api::V1::ApplicationController
   def create
     Rails.logger.info "Creating device token with params: #{params.inspect}"
 
-    begin
-      @device_token = current_user.device_tokens.create!(
-        token: device_token_params[:token],
+    ActiveRecord::Base.transaction do
+      # Désactiver tous les tokens existants pour cet utilisateur
+      current_user.device_tokens.update_all(active: false)
+
+      # Créer ou mettre à jour le nouveau token
+      @device_token = current_user.device_tokens.find_or_initialize_by(token: device_token_params[:token])
+      @device_token.update!(
         platform: device_token_params[:platform],
         active: true
       )
+    end
 
-      Rails.logger.info "Created device token: #{@device_token.inspect}"
+    Rails.logger.info "Created/Updated device token: #{@device_token.inspect}"
 
-      render json: {
-        message: 'Device token registered successfully',
-        device_token: @device_token
-      }, status: :created
+    render json: {
+      message: 'Device token registered successfully',
+      device_token: @device_token
+    }, status: :created
     rescue => e
       Rails.logger.error "Failed to create device token: #{e.message}"
       Rails.logger.error e.backtrace.join("\n")

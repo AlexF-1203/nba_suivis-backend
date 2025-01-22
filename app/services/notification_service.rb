@@ -1,8 +1,10 @@
-# app/services/notification_service.rb
 require 'net/http'
 require 'uri'
+require 'json'
 
 class NotificationService
+  EXPO_PUSH_ENDPOINT = 'https://exp.host/--/api/v2/push/send'
+
   class << self
     def notify_game_finished(game)
       return unless game.status == "Finished"
@@ -14,63 +16,43 @@ class NotificationService
           .where(device_tokens: { active: true })
           .find_each do |user|
         user.device_tokens.each do |token|
-          send_firebase_notification(token.token, title, body)
+          send_expo_notification(token.token, title, body)
         end
       end
     end
 
     def send_test_notification(tokens, user)
+      title = "Test Notification"
+      body = "Bonjour #{user.username}! Ceci est une notification de test."
+      data = { type: 'test' }
+
       tokens.each do |token|
-        send_push_notification(
-          token,
-          {
-            title: "Test Notification",
-            body: "Bonjour #{user.username}! Ceci est une notification de test.",
-            data: { type: 'test' }
-          }
-        )
+        send_expo_notification(token, title, body)
       end
     end
 
     private
 
-    def send_push_notification(token, message)
-      response = HTTP.post(
-        'https://exp.host/--/api/v2/push/send',
-        json: {
-          to: token,
-          title: message[:title],
-          body: message[:body],
-          data: message[:data],
-          sound: 'default'
-        },
-        headers: { 'Accept' => 'application/json' }
-      )
+    def send_expo_notification(token, title, body)
+      uri = URI.parse(EXPO_PUSH_ENDPOINT)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
 
-      unless response.status.success?
-        Rails.logger.error "Push notification error: #{response.body}"
-        raise "Failed to send push notification: #{response.status}"
-      end
+      request = Net::HTTP::Post.new(uri.path)
+      request['Accept'] = 'application/json'
+      request['Content-Type'] = 'application/json'
 
-      Rails.logger.info "Push notification sent: #{response.body}"
-    end
-  end
-
-  def send_firebase_notification(token, title, body)
-    message = {
-      notification: {
+      request.body = {
+        to: token,
         title: title,
-        body: body
-      },
-      token: token
-    }
+        body: body,
+        sound: 'default'
+      }.to_json
 
-    begin
-      response = $firebase_messaging.send(message)
-      Rails.logger.info "Successfully sent notification: #{response}"
+      response = http.request(request)
+      Rails.logger.info "Notification response: #{response.body}"
     rescue => e
-      Rails.logger.error "Error sending notification: #{e.message}"
+      Rails.logger.error "Failed to send notification: #{e.message}"
     end
   end
-end
 end
