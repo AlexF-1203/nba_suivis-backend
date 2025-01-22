@@ -1,10 +1,12 @@
 class Api::V1::NotificationsController < Api::V1::ApplicationController
   def test
-    @device_token = current_user.device_tokens.create!(
-      token: "test_expo_token_#{Time.current.to_i}",
-      platform: "ios",
-      active: true
-    )
+    # Utilisons les tokens existants au lieu d'en créer un nouveau
+    device_tokens = current_user.device_tokens.where(active: true)
+
+    if device_tokens.empty?
+      render json: { error: 'No active device tokens found' }, status: :not_found
+      return
+    end
 
     game = Game.last
     if game

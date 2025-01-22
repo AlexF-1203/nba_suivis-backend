@@ -26,7 +26,11 @@ Rails.application.routes.draw do
       resources :favorite_players, only: [:index, :create, :destroy]
       resources :player_games, only: [:index]
       post 'test_notification', to: 'notifications#test'
-      resources :device_tokens, only: [:create]
+      resources :device_tokens, only: [:create] do
+        collection do
+          delete 'cleanup'
+        end
+      end
     end
   end
 end
