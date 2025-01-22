@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post 'test_notification', to: 'notifications#test'
       get 'assets/teams/:filename', to: 'assets#show'
       devise_scope :user do
         post '/signup', to: 'users/registrations#create'
@@ -25,7 +26,6 @@ Rails.application.routes.draw do
       resources :favorite_teams, only: [:index, :create, :destroy]
       resources :favorite_players, only: [:index, :create, :destroy]
       resources :player_games, only: [:index]
-      post 'test_notification', to: 'notifications#test'
       resources :device_tokens, only: [:create] do
         collection do
           delete 'cleanup'
