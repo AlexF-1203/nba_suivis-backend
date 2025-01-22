@@ -10,7 +10,6 @@ class NotificationService
       title = "Match terminé"
       body = "#{game.team_1.name} #{game.team_1_score} - #{game.team_2_score} #{game.team_2.name}"
 
-      # Get all users with active device tokens
       User.joins(:device_tokens)
           .where(device_tokens: { active: true })
           .find_each do |user|
@@ -56,7 +55,7 @@ class NotificationService
       Rails.logger.info "Push notification sent: #{response.body}"
     end
   end
-  
+
   def send_firebase_notification(token, title, body)
     message = {
       notification: {
