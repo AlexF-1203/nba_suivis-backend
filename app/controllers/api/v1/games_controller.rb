@@ -27,8 +27,6 @@ class Api::V1::GamesController < Api::V1::ApplicationController
     end
   end
 
-  private
-
   def available_dates
     dates = Game.select('DISTINCT DATE(date) as game_date')
                 .order('game_date DESC')
@@ -36,6 +34,9 @@ class Api::V1::GamesController < Api::V1::ApplicationController
 
     render json: { dates: dates }
   end
+  
+  private
+
 
   def game_params
     params.require(:game).permit(:team_1_id, :team_2_id, :date, :team_1_score, :team_2_score)
