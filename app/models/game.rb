@@ -9,7 +9,7 @@ class Game < ApplicationRecord
   private
 
   def notify_if_finished
-    if saved_change_to_status? && status == "Finished"
+    if saved_change_to_attribute?(:status) && status == "Finished"
       Rails.logger.info "Game #{id} finished, sending notification..."
       NotificationService.notify_game_finished(self)
     end

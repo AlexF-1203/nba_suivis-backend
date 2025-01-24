@@ -9,14 +9,22 @@ class NotificationService
     def notify_game_finished(game)
       return unless game.status == "Finished"
 
+      Rails.logger.info "Preparing notification for game #{game.id}"
+
       title = "Match terminé"
       body = "#{game.team_1.name} #{game.team_1_score} - #{game.team_2_score} #{game.team_2.name}"
 
       User.joins(:device_tokens)
           .where(device_tokens: { active: true })
           .find_each do |user|
+        Rails.logger.info "Sending notification to user #{user.id}"
         user.device_tokens.each do |token|
-          send_expo_notification(token.token, title, body)
+          begin
+            send_expo_notification(token.token, title, body)
+            Rails.logger.info "Notification sent successfully to token: #{token.token}"
+          rescue => e
+            Rails.logger.error "Failed to send notification: #{e.message}"
+          end
         end
       end
     end
@@ -34,7 +42,8 @@ class NotificationService
     private
 
     def send_expo_notification(token, title, body)
-      uri = URI.parse(EXPO_PUSH_ENDPOINT)
+      Rails.logger.info "Attempting to send notification to token: #{token}"
+      uri = URI.parse('https://exp.host/--/api/v2/push/send')
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
@@ -51,8 +60,6 @@ class NotificationService
 
       response = http.request(request)
       Rails.logger.info "Notification response: #{response.body}"
-    rescue => e
-      Rails.logger.error "Failed to send notification: #{e.message}"
     end
   end
 end
