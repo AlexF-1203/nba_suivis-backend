@@ -930,7 +930,7 @@ puts "Creating players..."
 #   Player.create!(player)
 # end
 
-Création des utilisateurs
+
 puts "Creating users..."
 users = [
   { email: "admin@test.com", password: "password", username: "NBAFan1" },
