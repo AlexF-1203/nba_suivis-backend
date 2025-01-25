@@ -18,8 +18,6 @@ class SyncGameStatsJob < ApplicationJob
         api_service.get_game_statistics(game.game_api_id)
 
         # Ajouter un délai de 20 secondes entre chaque requête
-        Rails.logger.info "Waiting 20 seconds before next request..."
-        sleep(20)
       rescue => e
         Rails.logger.error "Error syncing stats for game #{game.id}: #{e.message}"
         # Continue to next game even if there's an error

@@ -1,6 +1,6 @@
 # app/models/device_token.rb
 class DeviceToken < ApplicationRecord
-  after_save :check_token_validity
+  # after_save :check_token_validity
 
   belongs_to :user
 

@@ -8,7 +8,7 @@ class Api::V1::NotificationsController < Api::V1::ApplicationController
 
       if device_tokens.empty?
         render json: { error: 'No active device tokens found' }, status: :not_found
-        return
+        returnn
       end
 
       game = Game.last
