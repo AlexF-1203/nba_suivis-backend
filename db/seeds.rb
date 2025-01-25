@@ -930,19 +930,19 @@ puts "Creating players..."
 #   Player.create!(player)
 # end
 
-# Création des utilisateurs
-# puts "Creating users..."
-# users = [
-#   { email: "admin@test.com", password: "password", username: "NBAFan1" },
-#   { email: "user2@example.com", password: "password123", username: "HoopsMaster" },
-#   { email: "user3@example.com", password: "password123", username: "BasketballLover" },
-#   { email: "user4@example.com", password: "password123", username: "CourtKing" },
-#   { email: "user5@example.com", password: "password123", username: "BballExpert" }
-# ]
+Création des utilisateurs
+puts "Creating users..."
+users = [
+  { email: "admin@test.com", password: "password", username: "NBAFan1" },
+  { email: "user2@example.com", password: "password123", username: "HoopsMaster" },
+  { email: "user3@example.com", password: "password123", username: "BasketballLover" },
+  { email: "user4@example.com", password: "password123", username: "CourtKing" },
+  { email: "user5@example.com", password: "password123", username: "BballExpert" }
+]
 
-# created_users = users.map do |user|
-#   User.create!(user)
-# end
+created_users = users.map do |user|
+  User.create!(user)
+end
 
 # Création des matchs
 # puts "Creating games..."
